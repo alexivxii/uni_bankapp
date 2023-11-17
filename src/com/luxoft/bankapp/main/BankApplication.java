@@ -20,6 +20,7 @@ public class BankApplication {
 		modifyBank();
 		printBalance();
 		BankService.printMaximumAmountToWithdraw(bank);
+		System.out.println("Final Main");
 	}
 	
 	private static void modifyBank() {

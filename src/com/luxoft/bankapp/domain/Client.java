@@ -3,18 +3,28 @@ package com.luxoft.bankapp.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.*;
 
 public class Client {
 	
 	private String name;
 	private Gender gender;
-	private List<Account> accounts = new ArrayList<Account>();
 
-	public Client(String name, Gender gender) {
+	//ToDo: task 1.1
+	private String city;
+
+	//ToDo: task 1.1
+	private Set<Account> accounts = new HashSet<Account>();
+
+
+
+	public Client(String name, Gender gender, String city) {
 		this.name = name;
 		this.gender = gender;
+		this.city = city;
 	}
-	
+
+	//ToDo: task 1.1? nu ar trebui verificat si aici daca mai exista account ul pe care vrem sa il adaugam?
 	public void addAccount(final Account account) {
 		accounts.add(account);
 	}
@@ -22,13 +32,19 @@ public class Client {
 	public String getName() {
 		return name;
 	}
+
+	//ToDo: task 1.1
+	public String getCity() {
+		return city;
+	}
 	
 	public Gender getGender() {
 		return gender;
 	}
-	
-	public List<Account> getAccounts() {
-		return Collections.unmodifiableList(accounts);
+
+	//ToDo: task 1.1
+	public Set<Account> getAccounts() {
+		return Collections.unmodifiableSet(accounts);
 	}
 	
 	public String getClientGreeting() {
