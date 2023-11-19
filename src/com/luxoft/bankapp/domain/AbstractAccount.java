@@ -2,6 +2,8 @@ package com.luxoft.bankapp.domain;
 
 import com.luxoft.bankapp.exceptions.NotEnoughFundsException;
 
+import java.util.Objects;
+
 public abstract class AbstractAccount implements Account {
 	
 	private int id;
@@ -41,6 +43,27 @@ public abstract class AbstractAccount implements Account {
 	@Override
 	public double getBalance() {
 		return balance;
+	}
+
+	//ToDo: task 1.1
+	@Override
+	public boolean equals(Object obj){
+		if(this==obj) {
+			return true;
+		}
+		else if(obj==null){
+			return false;
+		}
+		else if(this.getClass()!=obj.getClass()){
+			return false;
+		}
+		AbstractAccount aa = (AbstractAccount)obj;
+		return this.id == aa.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id, balance);
 	}
 
 }

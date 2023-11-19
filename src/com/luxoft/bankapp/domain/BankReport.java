@@ -6,12 +6,12 @@ import java.util.*;
 public class BankReport {
 
     //ToDo: needs test
-    int getNumberOfClients(Bank bank){
+    public int getNumberOfClients(Bank bank){
         return bank.getClients().size();
     }
 
     //ToDo: needs test
-    int getNumberOfAccounts(Bank bank){
+    public int getNumberOfAccounts(Bank bank){
         int nrAccounts = 0;
 
         Set<Client> clientSet = new HashSet<Client>();
@@ -32,7 +32,7 @@ public class BankReport {
     }
 
     //clients sorted by name and prints
-    SortedSet getClientsSorted(Bank bank) {
+    public SortedSet<Client> getClientsSorted(Bank bank) {
 
         Set<Client> clientSet = new HashSet<Client>();
         clientSet = bank.getClients();
@@ -46,7 +46,7 @@ public class BankReport {
 
     }
 
-    double getTotalSumInAccounts(Bank bank){
+    public double getTotalSumInAccounts(Bank bank){
 
         double balanceAllAccounts = 0.0;
 
@@ -68,9 +68,14 @@ public class BankReport {
 
     }
 
-    SortedSet getAccountSortedBySum(Bank bank){
+    public SortedSet<Account> getAccountSortedBySum(Bank bank){
 
-        SortedSet accountsSorted = new TreeSet<Account>(Comparator.comparing(Account::getBalance));
+        //SortedSet<Account> accountsSorted = new TreeSet<Account>(Comparator.comparingDouble(Account::getBalance));
+        SortedSet<Account> accountsSorted = new TreeSet(new Comparator<Account>() {
+            public int compare(Account o1, Account o2) {
+                return (int)Math.round(o1.getBalance() - o2.getBalance());
+            }
+        });
 
         Set<Client> clientSet = new HashSet<Client>();
         clientSet = bank.getClients();
@@ -84,12 +89,21 @@ public class BankReport {
 
         }
 
+        Iterator<Account> iterator = accountsSorted.iterator();
+        while (iterator.hasNext()) {
+            Account account = iterator.next();
+            System.out.println("Account Balance: " + account.getBalance());
+        }
+
+        System.out.println(accountsSorted.size());
+        //System.out.println(accountsSorted);
+
         return accountsSorted;
 
     }
 
     //ToDo: ?? asa se face creditu?
-    double getBankCreditSum(Bank bank){
+    public double getBankCreditSum(Bank bank){
 
         double creditSum = 0.0;
 
@@ -118,7 +132,7 @@ public class BankReport {
     }
 
 
-    Map<Client,Collection<Account>> getCustomerAccounts(Bank bank){
+    public Map<Client,Collection<Account>> getCustomerAccounts(Bank bank){
 
         Map<Client,Collection<Account>> clientAccountsMap = new HashMap<Client,Collection<Account>>();
 
@@ -133,11 +147,13 @@ public class BankReport {
 
         }
 
+        //System.out.println(clientAccountsMap);
+
         return clientAccountsMap;
 
     }
 
-    Map<String, List<Client>> getClientsByCity(Bank bank){
+    public Map<String, List<Client>> getClientsByCity(Bank bank){
 
         Map<String, List<Client>> cityClientsMap = new HashMap<String, List<Client>>();
 
@@ -151,23 +167,15 @@ public class BankReport {
 
             allCities.add(client.getCity());
 
-            cityClientsMap.put(client.getCity(), new ArrayList<Client>());
+            if (cityClientsMap.containsKey(client.getCity())==false){
+                cityClientsMap.put(client.getCity(), new ArrayList<Client>());
+            }
 
             tempList = cityClientsMap.get(client.getCity()); //toti clientii din orasul acestui client
             tempList.add(client);
-            //i use put again to overwrite
-            cityClientsMap.put(client.getCity(), tempList);
-            tempList.clear();
+
+            cityClientsMap.replace(client.getCity(), tempList);
         }
-
-//        for(Client client : clientSet){
-//            tempList = cityClientsMap.get(client.getCity()); //toti clientii din orasul acestui client
-//            tempList.add(client);
-//            //i use put again to overwrite
-//            cityClientsMap.put(client.getCity(), tempList);
-//            tempList.clear();
-//        }
-
 
         //print clients for each city (cities in alphabetical order)
         for (String city : allCities){

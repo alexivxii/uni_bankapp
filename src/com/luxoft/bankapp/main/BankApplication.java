@@ -1,11 +1,6 @@
 package com.luxoft.bankapp.main;
 
-import com.luxoft.bankapp.domain.Account;
-import com.luxoft.bankapp.domain.Bank;
-import com.luxoft.bankapp.domain.CheckingAccount;
-import com.luxoft.bankapp.domain.Client;
-import com.luxoft.bankapp.domain.Gender;
-import com.luxoft.bankapp.domain.SavingAccount;
+import com.luxoft.bankapp.domain.*;
 import com.luxoft.bankapp.exceptions.ClientExistsException;
 import com.luxoft.bankapp.exceptions.NotEnoughFundsException;
 import com.luxoft.bankapp.exceptions.OverdraftLimitExceededException;
@@ -16,15 +11,19 @@ public class BankApplication {
 	private static Bank bank;
 	
 	public static void main(String[] args) {
+		System.out.println("Start Main");
 		bank = new Bank();
 		modifyBank();
 		printBalance();
 		BankService.printMaximumAmountToWithdraw(bank);
-		System.out.println("Final Main");
+
+		printStatistics();
+
+		System.out.println("End Main");
 	}
 	
 	private static void modifyBank() {
-		Client client1 = new Client("John", Gender.MALE);
+		Client client1 = new Client("John", Gender.MALE, "Bucharest");
 		Account account1 = new SavingAccount(1, 100);
 		Account account2 = new CheckingAccount(2, 100, 20);
 		client1.addAccount(account1);
@@ -76,6 +75,21 @@ public class BankApplication {
 				System.out.format("Account %d : %.2f%n", account.getId(), account.getBalance());
 			}
 		}
+	}
+
+	private static void printStatistics(){
+		BankReport report1 = new BankReport();
+
+		System.out.println("1.Number of bank clients is: " + report1.getNumberOfClients(bank));
+		System.out.println("2.Total number of accounts for all clients is: " + report1.getNumberOfAccounts(bank));
+		System.out.println("3.Set of clients in alphabetical order is: " + report1.getClientsSorted(bank));
+		System.out.println("4.Total sum (balance) from the accounts of all bank clients is: " + report1.getTotalSumInAccounts(bank));
+		System.out.println("5.The set of all accounts. The list is ordered by current account balance: " + report1.getAccountSortedBySum(bank));
+		System.out.println("6.The total amount of credits granted to the bank clients is: " + report1.getBankCreditSum(bank));
+		System.out.println("7.Map of clients and their accounts: " + report1.getCustomerAccounts(bank));
+		System.out.println("8.Map of clients grouped by city (cities ordered alphabetically): " + report1.getClientsByCity(bank));
+
+
 	}
 
 }
