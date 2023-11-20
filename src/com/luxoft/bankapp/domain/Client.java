@@ -60,4 +60,17 @@ public class Client {
 		return getClientGreeting();
 	}
 
+	//equals e pt seturi, sa vada daca apartine sau nu setului
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Client client = (Client) o;
+		return Objects.equals(name, client.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
 }

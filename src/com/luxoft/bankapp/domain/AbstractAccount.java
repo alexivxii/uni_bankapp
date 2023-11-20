@@ -46,24 +46,45 @@ public abstract class AbstractAccount implements Account {
 	}
 
 	//ToDo: task 1.1
+//	@Override
+//	public boolean equals(Object obj){
+//		if(this==obj) {
+//			return true;
+//		}
+//		else if(obj==null){
+//			return false;
+//		}
+//		else if(this.getClass()!=obj.getClass()){
+//			return false;
+//		}
+//		AbstractAccount aa = (AbstractAccount)obj;
+//		return this.id == aa.id;
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(this.id, this.balance);
+//	}
+
+
 	@Override
-	public boolean equals(Object obj){
-		if(this==obj) {
-			return true;
-		}
-		else if(obj==null){
-			return false;
-		}
-		else if(this.getClass()!=obj.getClass()){
-			return false;
-		}
-		AbstractAccount aa = (AbstractAccount)obj;
-		return this.id == aa.id;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		AbstractAccount that = (AbstractAccount) o;
+		return id == that.id;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.id, balance);
+		return id;
 	}
 
+	@Override
+	public String toString() {
+		return "AbstractAccount{" +
+				"id=" + id +
+				", balance=" + balance +
+				'}';
+	}
 }

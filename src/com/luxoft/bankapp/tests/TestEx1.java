@@ -64,7 +64,8 @@ public class TestEx1 {
         expectedAccountsSorted.add(new SavingAccount(3, 2000.0));
         expectedAccountsSorted.add(new CheckingAccount(6, 4000.0, 300.0));
         expectedAccountsSorted.add(new SavingAccount(5, 5000.0));
-
+        //assertEquals(new SavingAccount(2, 1000.0),new CheckingAccount(2, 1000.0, 100.0));
+        //de aici outputu e ca sunt diferite
         System.out.println(expectedAccountsSorted.size());
         assertEquals(expectedAccountsSorted,report1.getAccountSortedBySum(bank));
 

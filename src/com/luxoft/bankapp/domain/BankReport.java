@@ -71,23 +71,31 @@ public class BankReport {
     public SortedSet<Account> getAccountSortedBySum(Bank bank){
 
         //SortedSet<Account> accountsSorted = new TreeSet<Account>(Comparator.comparingDouble(Account::getBalance));
-        SortedSet<Account> accountsSorted = new TreeSet(new Comparator<Account>() {
-            public int compare(Account o1, Account o2) {
-                return (int)Math.round(o1.getBalance() - o2.getBalance());
+        SortedSet<Account> accountsSorted = new TreeSet<>(new Comparator<Account>() {
+            @Override
+            public int compare(Account a1, Account a2) {
+                return a2.getBalance() < a1.getBalance() ? 1 : -1;
             }
         });
 
+        //ToDo: trb sa ma uit la semnatura sa fiu mai atent
+        //chiar daca ii zic sa fie hashset, de fapt get clients imi da un unmodifiable set
+        //era mai safe daca ii dadeam direct bank.getClients()
         Set<Client> clientSet = new HashSet<Client>();
         clientSet = bank.getClients();
 
         Set<Account> accountSet = new HashSet<Account>();
+        Set<Account> temp = new HashSet<Account>();
 
         for(Client client : clientSet){
             accountSet = client.getAccounts();
-
-            accountsSorted.addAll(accountSet); //addAll appends every set of accounts from every client
+            System.out.printf("adaugam %d conturi in setul cu size %d\n", accountSet.size(),temp.size());
+            temp.addAll(accountSet); //addAll appends every set of accounts from every client
+            System.out.printf("size acum este %d\n",temp.size());
 
         }
+
+        accountsSorted.addAll(temp);
 
         Iterator<Account> iterator = accountsSorted.iterator();
         while (iterator.hasNext()) {
