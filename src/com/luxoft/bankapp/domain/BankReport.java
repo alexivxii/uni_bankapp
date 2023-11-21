@@ -89,9 +89,9 @@ public class BankReport {
 
         for(Client client : clientSet){
             accountSet = client.getAccounts();
-            System.out.printf("adaugam %d conturi in setul cu size %d\n", accountSet.size(),temp.size());
+            //System.out.printf("adaugam %d conturi in setul cu size %d\n", accountSet.size(),temp.size());
             temp.addAll(accountSet); //addAll appends every set of accounts from every client
-            System.out.printf("size acum este %d\n",temp.size());
+            //System.out.printf("size acum este %d\n",temp.size());
 
         }
 
