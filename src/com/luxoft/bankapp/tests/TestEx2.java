@@ -15,7 +15,7 @@ public class TestEx2 {
     int nrEmails = 5;
 
     @Test
-    public void testBankReport() throws ClientExistsException {
+    public void testMailService() throws ClientExistsException {
         Bank bank = new Bank();
         Client client1 = new Client("Smith John", Gender.MALE, "Bucharest");
 

@@ -82,9 +82,7 @@ public class BankReport {
             }
         });
 
-        //ToDo: trb sa ma uit la semnatura sa fiu mai atent
-        //chiar daca ii zic sa fie hashset, de fapt get clients imi da un unmodifiable set
-        //era mai safe daca ii dadeam direct bank.getClients()
+
         Set<Client> clientSet = new HashSet<Client>();
         clientSet = bank.getClients();
 

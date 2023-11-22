@@ -24,7 +24,6 @@ public class EmailService implements Runnable {
 
     @Override
     public void run(){
-        Email email;
 
         while(true){
 
@@ -33,10 +32,6 @@ public class EmailService implements Runnable {
                 System.out.println("Service is closed, no more sending emails");
                 return;
             }
-
-            //adaugam la numarul de mail uri trimise
-            sendEmail();
-            System.out.println("Sending Email");
 
             try{
                 synchronized (queue){
@@ -55,6 +50,9 @@ public class EmailService implements Runnable {
 
         if(isServiceOpen){
             queue.add(email);
+            //adaugam la numarul de mail uri trimise
+            sendEmail();
+            System.out.println("Sending Email");
             synchronized (queue){
                 queue.notify();
             }

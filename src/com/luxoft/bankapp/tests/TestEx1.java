@@ -52,7 +52,6 @@ public class TestEx1 {
         report1.getClientsSorted(bank);
 
         //Get total sum in accounts in the bank
-        //ToDo: trebuia si overdraftul?? in suma
         //delta = precizia
         assertEquals(14500,report1.getTotalSumInAccounts(bank),0.01);
 

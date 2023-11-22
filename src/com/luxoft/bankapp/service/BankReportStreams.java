@@ -188,7 +188,7 @@ public class BankReportStreams {
 //        return clientAccountsMap;
 
         //Map<Client,Collection<Account>> clientAccountsMap = new HashMap<Client,Collection<Account>>();
-        
+
         //bank.getClients().stream().peek(e -> clientAccountsMap.put(e,e.getAccounts()));
         Map<Client,Collection<Account>> clientAccountsMap = bank.getClients().stream().collect(Collectors.toMap(client -> client,Client::getAccounts));
 

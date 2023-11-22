@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Queue {
 
-    //Todo: de ce synchronized list?
     private List<Email> emails = Collections.synchronizedList(new LinkedList<Email>());
 
     public void add(Email email){
