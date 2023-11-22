@@ -1,6 +1,10 @@
 package com.luxoft.bankapp.domain;
 import com.luxoft.bankapp.domain.Bank;
 import java.util.*;
+import com.luxoft.bankapp.domain.Account;
+import com.luxoft.bankapp.domain.Bank;
+import com.luxoft.bankapp.domain.CheckingAccount;
+import com.luxoft.bankapp.domain.Client;
 
 //ToDo: task 1.1
 public class BankReport {
@@ -140,6 +144,7 @@ public class BankReport {
     }
 
 
+    //map cu clientii si conturile lor
     public Map<Client,Collection<Account>> getCustomerAccounts(Bank bank){
 
         Map<Client,Collection<Account>> clientAccountsMap = new HashMap<Client,Collection<Account>>();
@@ -161,6 +166,7 @@ public class BankReport {
 
     }
 
+    //gruparea clientilor pe orase
     public Map<String, List<Client>> getClientsByCity(Bank bank){
 
         Map<String, List<Client>> cityClientsMap = new HashMap<String, List<Client>>();
