@@ -17,7 +17,8 @@ public class BankApplication {
 		printBalance();
 		BankService.printMaximumAmountToWithdraw(bank);
 
-		printStatistics();
+		if(args.length > 0 && args[0].equals("statistics"))
+			printStatistics();
 
 		System.out.println("End Main");
 	}

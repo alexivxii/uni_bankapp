@@ -12,7 +12,15 @@ public class Queue {
         emails.add(email);
     }
 
-    public Email getEmail(){
+    public boolean isEmpty() {
+        return emails.isEmpty();
+    }
+
+    public int getQueueSize(){
+        return emails.size();
+    }
+
+    public Email removeEmail(){
 
         //primim primul mail din coada si il stergem din lista din queue
         if(emails.size()>0){

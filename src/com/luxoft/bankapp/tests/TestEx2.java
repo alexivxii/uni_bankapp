@@ -34,13 +34,15 @@ public class TestEx2 {
 
         Email email1 = new Email();
         email1.setBody("Mesaj de trimis");
-        email1.setTitle("Titlul mail-ului");
+        //email1.setTitle("Titlul mail-ului");
         email1.setSender(client1);
         email1.setReceivers(receivers);
 
         EmailService emailService = new EmailService();
 
         for(int i = 0; i < nrEmails; i++){
+
+            email1.setTitle("Titlul mail-ului " + i);
             emailService.sendNotificationEmail(email1);
 
             try {

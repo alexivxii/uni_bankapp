@@ -3,6 +3,8 @@ package com.luxoft.bankapp.service;
 import com.luxoft.bankapp.domain.Email;
 import com.luxoft.bankapp.domain.Queue;
 
+import java.sql.SQLOutput;
+
 public class EmailService implements Runnable {
 
     private Queue queue = new Queue();
@@ -14,7 +16,7 @@ public class EmailService implements Runnable {
         return sentEmails;
     }
 
-    private void sendEmail(){
+    private void increaseNrOfSentEmails(){
         sentEmails++;
     }
 
@@ -27,20 +29,26 @@ public class EmailService implements Runnable {
 
         while(true){
 
-            //daca serviciul e inchis, nu mai continuam sa trimitem mail-urile
-            if(isServiceOpen==false) {
-                System.out.println("Service is closed, no more sending emails");
-                return;
+            while(queue.isEmpty()){
+                if(isServiceOpen==false) {
+                    System.out.println("Service is closed, no more sending emails");
+                    return;
+                }
+
+                synchronized (queue){
+                    try {
+                        queue.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
 
-            try{
-                synchronized (queue){
-                    queue.wait();
-                }
-            } catch (InterruptedException e){
-                e.printStackTrace();
-                return;
-            }
+            //adaugam la numarul de mail uri trimise
+            increaseNrOfSentEmails();
+            Email emailTemp = queue.removeEmail();
+            System.out.println("Sending Email: " + emailTemp.getTitle());
+
         }
 
     }
@@ -50,9 +58,6 @@ public class EmailService implements Runnable {
 
         if(isServiceOpen){
             queue.add(email);
-            //adaugam la numarul de mail uri trimise
-            sendEmail();
-            System.out.println("Sending Email");
             synchronized (queue){
                 queue.notify();
             }
